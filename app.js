@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+require('dotenv/config')
 
 //Middlewares
 app.use('/posts', () => {
@@ -24,11 +25,11 @@ app.get('/posts', (req, res) => {
 })
 
 //Connect to DB
-mongoose.connect('mongodb+srv://dewu:1234@testcluster-k53kr.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect(process.env.DB_CONNECTION,
     { useNewUrlParser: true ,
       useUnifiedTopology: true },
     () => {
-    console.log('Connected to DB!')
+      console.log('Connected to DB!')
 })
 
 app.listen(3000)
