@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const mongoose = require('mongoose')
 
 //Middlewares
 app.use('/posts', () => {
@@ -20,6 +21,14 @@ app.get('/', (req, res) => {
 
 app.get('/posts', (req, res) => {
     res.send('We are on Posts')
+})
+
+//Connect to DB
+mongoose.connect('mongodb+srv://dewu:1234@testcluster-k53kr.mongodb.net/test?retryWrites=true&w=majority',
+    { useNewUrlParser: true ,
+      useUnifiedTopology: true },
+    () => {
+    console.log('Connected to DB!')
 })
 
 app.listen(3000)
