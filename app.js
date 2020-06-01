@@ -2,11 +2,16 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 require('dotenv/config')
 
-app.use(bodyParser.json())
+//cors is used to provide access control for other domains
+//to access apis from our local host domain
+app.use(cors())
+
 //whenver a request is made it parses 
 //the body of the request into json
+app.use(bodyParser.json())
 
 //Import Routes
 const postsRoute = require('./routes/posts')
