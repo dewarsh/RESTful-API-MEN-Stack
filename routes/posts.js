@@ -46,10 +46,24 @@ router.post('/', async (req, res) => {
 //Delete a post
 router.delete('/:postId', async (req, res) => {
     try{
-        const deletedPost = await Post.remove({_id: req.params.postId})
+        // const deletedPost = await Post.remove({_id: req.params.postId})
+        // as the above throws error - collection.remove is depreacated
         // OR
         const deletedPost = await Post.deleteOne({_id: req.params.postId})
         res.json(deletedPost)
+    }
+    catch(err) {
+        res.json({ message: err })
+    }
+})
+
+//Update a Post
+router.patch('/:postId', async (req, res) => {
+    try{
+        const updatedPost = await Post.updateOne( {_id: req.params.postId}, 
+            { $set: { title: req.body.title } }
+        )
+        res.json(updatedPost)
     }
     catch(err) {
         res.json({ message: err })
