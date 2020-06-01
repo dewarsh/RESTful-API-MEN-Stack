@@ -11,7 +11,17 @@ router.get('/specific', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.body)
+    const post = new Post({
+        title: req.body.title,
+        description: req.body.description
+    })
+
+    //add this data(the above post) to Mongo DB using save method
+    post.save()
+    .then(data => res.json(data))
+    .catch(err => {
+        res.json({message: err})
+    })
 })
 
 module.exports = router
