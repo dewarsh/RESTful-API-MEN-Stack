@@ -10,18 +10,21 @@ router.get('/specific', (req, res) => {
     res.send('Welcome to Specific Post')
 })
 
-router.post('/', (req, res) => {
+//Create a post
+router.post('/', async (req, res) => {
     const post = new Post({
         title: req.body.title,
         description: req.body.description
     })
 
     //add this data(the above post) to Mongo DB using save method
-    post.save()
-    .then(data => res.json(data))
-    .catch(err => {
-        res.json({message: err})
-    })
+    try {
+        const postCreated = await post.save()
+        res.json(postCreated)
+    }
+    catch(err) {
+        res.json({ message: err })
+    }
 })
 
 module.exports = router
