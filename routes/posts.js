@@ -13,8 +13,17 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/specific', (req, res) => {
-    res.send('Welcome to Specific Post')
+//Fetching an individual post
+router.get('/:postId', async (req, res) => {
+    try{
+        const individualPost = await Post.find({_id: req.params.postId})
+        // OR
+        const individualPost = await Post.findById(req.params.postId)
+        res.json(individualPost)
+    }
+    catch(err) {
+        res.json({ message: err })
+    }
 })
 
 //Create a post
