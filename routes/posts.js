@@ -18,7 +18,7 @@ router.get('/:postId', async (req, res) => {
     try{
         const individualPost = await Post.find({_id: req.params.postId})
         // OR
-        const individualPost = await Post.findById(req.params.postId)
+        // const individualPost = await Post.findById(req.params.postId)
         res.json(individualPost)
     }
     catch(err) {
@@ -37,6 +37,19 @@ router.post('/', async (req, res) => {
     try {
         const postCreated = await post.save()
         res.json(postCreated)
+    }
+    catch(err) {
+        res.json({ message: err })
+    }
+})
+
+//Delete a post
+router.delete('/:postId', async (req, res) => {
+    try{
+        const deletedPost = await Post.remove({_id: req.params.postId})
+        // OR
+        const deletedPost = await Post.deleteOne({_id: req.params.postId})
+        res.json(deletedPost)
     }
     catch(err) {
         res.json({ message: err })
